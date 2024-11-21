@@ -1,0 +1,58 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: black;
+    color:white
+}
+header {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Push "Robot" to the left and "Human" to the right */
+    align-items: center; /* Vertically align text */
+    padding: 10px; /* Add padding around the header */
+    width: 100%; /* Make the header span the full width of the screen */
+    position: relative; /* Ensure the header stays in position */
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+header span {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.game-container {
+    margin: 50px auto;
+    width: 300px;
+}
+.grid {
+    display: grid;
+    background-color: white;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 5px;
+}
+.cell {
+    background-color: black;
+    border: 1px solid #000;
+    font-size: 2rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.cell.used {
+    cursor: not-allowed;
+    color:white;
+}
+#player-choice {
+    margin-bottom: 20px;
+}
+button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #ddd;
+}
+

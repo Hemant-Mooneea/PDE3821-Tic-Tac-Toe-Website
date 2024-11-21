@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Tic Tac Toe</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Tic Tac Toe</h1>
+    <div id="player-choice">
+        <p>Choose your mark:</p>
+        <button onclick="setPlayer('X')">Player X</button>
+        <button onclick="setPlayer('O')">Player O</button>
+    </div>
+    
+    <div id="game-board" class="game-container" style="display: none;">
+        <header>
+            <span>Robot: <span id="robot-symbol"></span></span>
+            <span>Human: <span id="human-symbol"></span></span>
+        </header>
+        <p id="robot-mark" style="margin-bottom: 20px; font-size: 1.2rem;"></p>
+        <div class="grid" id="grid"></div>
+        <p id="winner" style="margin-top: 20px; font-size: 1.5rem;"></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
