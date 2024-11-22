@@ -50,15 +50,21 @@ const initializeGrid = () => {
 const markCell = (cell, index) => {
     if (!cell.textContent && !gameOver) {
         cell.textContent = currentPlayer;
+        cell.classList.add('used'); 
         gameState[index] = currentPlayer;
-        cell.classList.add('used');
+
+        // Check for a win or a draw
         if (checkWin()) {
             handleWin();
+        } else if (checkDraw()) {
+            handleDraw();
         } else {
+            // Toggle to the next player
             togglePlayer();
         }
     }
 };
+
 
 const togglePlayer = () => {
     currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
@@ -104,3 +110,20 @@ const handleWin = () => {
         }
     }, 1000); // 5-second delay
 };
+
+const checkDraw = () => {
+    return gameState.every(cell => cell !== '');
+};
+
+const handleDraw = () => {
+    document.getElementById('winner').textContent = "It's a draw!";
+    setTimeout(() => {
+        const restart = confirm("It's a draw! Do you want to restart the game?");
+        if (restart) {
+            window.location.reload();
+        } else {
+            window.close();
+        }
+    }, 1000);
+};
+
