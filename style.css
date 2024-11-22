@@ -27,11 +27,11 @@ header span {
     background-color: white;
     grid-template-columns: repeat(3, 100px);
     grid-template-rows: repeat(3, 100px);
-    gap: 5px;
+    gap: 0px;
 }
 .cell {
     background-color: black;
-    border: 1px solid #000;
+    border: 3px solid white;
     font-size: 2rem;
     font-weight: bold;
     display: flex;
@@ -55,4 +55,5 @@ button {
 button:hover {
     background-color: #ddd;
 }
+
 
