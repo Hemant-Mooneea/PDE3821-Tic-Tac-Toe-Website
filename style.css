@@ -24,7 +24,7 @@ header span {
 }
 .grid {
     display: grid;
-    background-color: white;
+
     grid-template-columns: repeat(3, 100px);
     grid-template-rows: repeat(3, 100px);
     gap: 0px;
@@ -39,6 +39,25 @@ header span {
     justify-content: center;
     cursor: pointer;
 }
+
+
+.cell:nth-child(3n) {
+    border-right: 10px solid white;
+}
+
+
+.cell:nth-last-child(-n+3) {
+    border-bottom: 10px solid white;
+}
+
+.cell:nth-child(3n-2) {
+    border-left: 10px solid white;
+}
+
+.cell:nth-child(-n+3) {
+    border-top: 10px solid white;
+}
+
 .cell.used {
     cursor: not-allowed;
     color:white;
