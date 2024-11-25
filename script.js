@@ -50,21 +50,17 @@ const initializeGrid = () => {
 const markCell = (cell, index) => {
     if (!cell.textContent && !gameOver) {
         cell.textContent = currentPlayer;
-        cell.classList.add('used'); 
         gameState[index] = currentPlayer;
-
-        // Check for a win or a draw
+        cell.classList.add('used');
         if (checkWin()) {
             handleWin();
         } else if (checkDraw()) {
-            handleDraw();
+            handleDraw(); // Handle the draw scenario
         } else {
-            // Toggle to the next player
             togglePlayer();
         }
     }
 };
-
 
 const togglePlayer = () => {
     currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
@@ -86,6 +82,11 @@ const checkWin = () => {
     return false;
 };
 
+const checkDraw = () => {
+    return gameState.every((cell) => cell !== '') && !gameOver;
+};
+
+
 const markWinningCells = (combination) => {
     const cells = document.querySelectorAll('.cell');
     combination.forEach((index) => {
@@ -99,31 +100,25 @@ const displayWinner = () => {
 
 const handleWin = () => {
     document.getElementById('winner').textContent = `Player ${currentPlayer} wins!`;
-    setTimeout(() => {
-        const restart = confirm(`Player ${currentPlayer} wins! Do you want to restart the game?`);
-        if (restart) {
-            // Refresh the page to restart the game
-            window.location.reload();
-        } else {
-            // Close the window
-            window.close();
-        }
-    }, 1000); // 5-second delay
+    showRestartButton();
 };
 
-const checkDraw = () => {
-    return gameState.every(cell => cell !== '');
-};
 
 const handleDraw = () => {
     document.getElementById('winner').textContent = "It's a draw!";
-    setTimeout(() => {
-        const restart = confirm("It's a draw! Do you want to restart the game?");
-        if (restart) {
-            window.location.reload();
-        } else {
-            window.close();
-        }
-    }, 1000);
+    showRestartButton();
 };
+
+
+const showRestartButton = () => {
+    const restartContainer = document.getElementById('restart-container');
+    restartContainer.style.display = 'block'; // Make the restart button visible
+};
+
+const restartGame = () => {
+    window.location.reload(); // Reload the page to restart the game
+};
+
+
+
 
