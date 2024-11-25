@@ -10,16 +10,6 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-.player-choice {
-    flex: 1;
-    padding: 20px;
-}
-h1 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    color: #c0bebe;
-    text-align: center;
-}
 header {
     display: flex; /* Use flexbox for layout */
     justify-content: space-between; /* Push "Robot" to the left and "Human" to the right */
@@ -40,14 +30,14 @@ header span {
 }
 .grid {
     display: grid;
-    background-color: white;
+
     grid-template-columns: repeat(3, 100px);
     grid-template-rows: repeat(3, 100px);
-    gap: 5px;
+    gap: 0px;
 }
 .cell {
     background-color: black;
-    border: 1px solid #000;
+    border: 3px solid white;
     font-size: 2rem;
     font-weight: bold;
     display: flex;
@@ -55,6 +45,25 @@ header span {
     justify-content: center;
     cursor: pointer;
 }
+
+
+.cell:nth-child(3n) {
+    border-right: 10px solid white;
+}
+
+
+.cell:nth-last-child(-n+3) {
+    border-bottom: 10px solid white;
+}
+
+.cell:nth-child(3n-2) {
+    border-left: 10px solid white;
+}
+
+.cell:nth-child(-n+3) {
+    border-top: 10px solid white;
+}
+
 .cell.used {
     cursor: not-allowed;
     color:white;
@@ -71,4 +80,25 @@ button {
 button:hover {
     background-color: #ddd;
 }
+
+#restart-container {
+    margin-top: 20px;
+}
+
+#restart-button {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#restart-button:hover {
+    background-color: green;
+}
+
+
+
 
