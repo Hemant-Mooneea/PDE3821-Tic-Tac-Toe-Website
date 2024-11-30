@@ -1,43 +1,53 @@
 let currentPlayer = '';
+let robotSymbol = '';
 let gameState = ['', '', '', '', '', '', '', '', ''];
 let gameOver = false;
 
-
 const winningCombinations = [
-    [0, 1, 2], // Top row
-    [3, 4, 5], // Middle row
-    [6, 7, 8], // Bottom row
-    [0, 3, 6], // Left column
-    [1, 4, 7], // Middle column
-    [2, 5, 8], // Right column
-    [0, 4, 8], // Diagonal \
-    [2, 4, 6], // Diagonal /
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
 ];
 
-const setPlayer = (player) => {
-    currentPlayer = player;
-    robotSymbol = player === 'X' ? 'O' : 'X'; // Assign robotSymbol based on the player's choice
+// Show the player choice section
+const showPlayerChoice = (mode) => {
+    document.getElementById('menu').classList.remove('active');
+    document.getElementById('player-choice').classList.add('active');
+};
 
-    // Update the symbols in the header
-    document.getElementById('human-symbol').textContent = currentPlayer;
-    document.getElementById('robot-symbol').textContent = robotSymbol;
-
-    // Hide the player choice section
-    document.getElementById('player-choice').style.display = 'none';
-
-    // Show the game board
-    document.getElementById('game-board').style.display = 'block';
-
-    // Initialize the game grid
+// Directly start the game for calibration
+const startGameDirect = () => {
+    currentPlayer = 'X';
+    robotSymbol = 'O';
+    document.getElementById('menu').classList.remove('active');
+    document.getElementById('game-board').classList.add('active');
     initializeGrid();
 };
 
+// Set the player and start the game
+const setPlayer = (player) => {
+    currentPlayer = player;
+    robotSymbol = player === 'X' ? 'O' : 'X';
+    document.getElementById('human-symbol').textContent = currentPlayer;
+    document.getElementById('robot-symbol').textContent = robotSymbol;
+    document.getElementById('player-choice').classList.remove('active');
+    document.getElementById('game-board').classList.add('active');
+    initializeGrid();
+};
+
+// Initialize the game grid
 const initializeGrid = () => {
     const grid = document.getElementById('grid');
     grid.innerHTML = '';
     gameState = ['', '', '', '', '', '', '', '', ''];
     gameOver = false;
     document.getElementById('winner').textContent = '';
+    document.getElementById('restart-container').style.display = 'none'; // Hide restart button at start
     for (let i = 0; i < 9; i++) {
         const cell = document.createElement('div');
         cell.className = 'cell';
@@ -47,33 +57,31 @@ const initializeGrid = () => {
     }
 };
 
+// Handle marking a cell
 const markCell = (cell, index) => {
     if (!cell.textContent && !gameOver) {
         cell.textContent = currentPlayer;
         gameState[index] = currentPlayer;
-        cell.classList.add('used');
         if (checkWin()) {
             handleWin();
         } else if (checkDraw()) {
-            handleDraw(); // Handle the draw scenario
+            handleDraw();
         } else {
             togglePlayer();
         }
     }
 };
 
+// Toggle between players
 const togglePlayer = () => {
     currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
 };
 
+// Check for a win
 const checkWin = () => {
     for (let combination of winningCombinations) {
         const [a, b, c] = combination;
-        if (
-            gameState[a] &&
-            gameState[a] === gameState[b] &&
-            gameState[a] === gameState[c]
-        ) {
+        if (gameState[a] && gameState[a] === gameState[b] && gameState[a] === gameState[c]) {
             markWinningCells(combination);
             gameOver = true;
             return true;
@@ -82,11 +90,12 @@ const checkWin = () => {
     return false;
 };
 
+// Check for a draw
 const checkDraw = () => {
     return gameState.every((cell) => cell !== '') && !gameOver;
 };
 
-
+// Mark the winning cells
 const markWinningCells = (combination) => {
     const cells = document.querySelectorAll('.cell');
     combination.forEach((index) => {
@@ -94,31 +103,19 @@ const markWinningCells = (combination) => {
     });
 };
 
-const displayWinner = () => {
-    document.getElementById('winner').textContent = `Player ${currentPlayer} wins!`;
-};
-
+// Handle a win
 const handleWin = () => {
     document.getElementById('winner').textContent = `Player ${currentPlayer} wins!`;
-    showRestartButton();
+    document.getElementById('restart-container').style.display = 'block'; // Show restart button
 };
 
-
+// Handle a draw
 const handleDraw = () => {
     document.getElementById('winner').textContent = "It's a draw!";
-    showRestartButton();
+    document.getElementById('restart-container').style.display = 'block'; // Show restart button
 };
 
-
-const showRestartButton = () => {
-    const restartContainer = document.getElementById('restart-container');
-    restartContainer.style.display = 'block'; // Make the restart button visible
-};
-
+// Restart the game
 const restartGame = () => {
-    window.location.reload(); // Reload the page to restart the game
+    window.location.reload();
 };
-
-
-
-
