@@ -119,3 +119,42 @@ const handleDraw = () => {
 const restartGame = () => {
     window.location.reload();
 };
+
+// Swap a random X or O on the board
+const swapRandomMark = () => {
+    const markedCells = []; // Array to store the indices of marked cells
+    gameState.forEach((cell, index) => {
+        if (cell === 'X' || cell === 'O') {
+            markedCells.push(index); // Add marked cell index to the array
+        }
+    });
+
+    if (markedCells.length > 0) {
+        const randomIndex = markedCells[Math.floor(Math.random() * markedCells.length)];
+        const newMark = gameState[randomIndex] === 'X' ? 'O' : 'X'; // Swap the mark
+        gameState[randomIndex] = newMark; // Update the game state
+        const cellElement = document.querySelector(`.cell[data-index='${randomIndex}']`);
+        cellElement.textContent = newMark; // Update the cell display
+    }
+};
+
+// Clear half of the board
+const clearHalfBoard = () => {
+    const markedCells = []; // Array to store indices of marked cells
+    gameState.forEach((cell, index) => {
+        if (cell === 'X' || cell === 'O') {
+            markedCells.push(index); // Add marked cell index to the array
+        }
+    });
+
+    const cellsToClear = Math.floor(markedCells.length / 2); // Calculate half the marked cells
+
+    for (let i = 0; i < cellsToClear; i++) {
+        const randomIndex = Math.floor(Math.random() * markedCells.length);
+        const cellIndex = markedCells[randomIndex];
+        gameState[cellIndex] = ''; // Clear the mark in the game state
+        const cellElement = document.querySelector(`.cell[data-index='${cellIndex}']`);
+        cellElement.textContent = ''; // Clear the cell display
+        markedCells.splice(randomIndex, 1); // Remove the cleared cell from the list
+    }
+};
