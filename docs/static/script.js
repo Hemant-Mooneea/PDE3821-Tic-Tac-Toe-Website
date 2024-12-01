@@ -2,6 +2,7 @@ let currentPlayer = '';
 let robotSymbol = '';
 let gameState = ['', '', '', '', '', '', '', '', ''];
 let gameOver = false;
+let gameMode = ''; // Track the selected mode: 'normal' or 'random'
 let randomEventProbability = 0.1; // Start with a 10% chance
 
 const winningCombinations = [
@@ -19,6 +20,7 @@ const winningCombinations = [
 
 // Show the player choice section
 const showPlayerChoice = (mode) => {
+    gameMode = mode;
     document.getElementById('menu').classList.remove('active');
     document.getElementById('player-choice').classList.add('active');
 };
@@ -76,16 +78,17 @@ const markCell = (cell, index) => {
         }
 
         // Step 3: Handle random event
-        if (Math.random() < randomEventProbability) {
-            triggerRandomEvent(); // Perform the random event
-            console.log(`Random event occurred at ${randomEventProbability}`);
-            randomEventProbability = 0.01; // Reset probability after event 
-        } else {
-            console.log(`Before incrementing, Probability is ${randomEventProbability}`)
-            randomEventProbability += 0.1; // Increment probability
-            console.log(`No random event. Probability increased to ${randomEventProbability}`);
+        if (gameMode == 'random'){
+            if (Math.random() < randomEventProbability) {
+                triggerRandomEvent(); // Perform the random event
+                console.log(`Random event occurred at ${randomEventProbability}`);
+                randomEventProbability = 0.1; // Reset probability after event 
+            } else {
+                console.log(`Before incrementing, Probability is ${randomEventProbability}`)
+                randomEventProbability += 0.1; // Increment probability
+                console.log(`No random event. Probability increased to ${randomEventProbability}`);
+            }
         }
-
         // Step 4: Toggle the player
         togglePlayer();
     }
@@ -95,21 +98,34 @@ const markCell = (cell, index) => {
 
 
 const togglePlayer = () => {
+    if (!gameOver) {
         currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        updateStatusMessage(`It's ${currentPlayer}'s turn!`);
+    }
+};
+
+const updateStatusMessage = (message) => {
+    const statusElement = document.getElementById('status');
+    statusElement.textContent = message; // Update the status message
+};
+
+const updateRandomEventMessage = (message) => {
+    const randomEventElement = document.getElementById('random-event');
+    randomEventElement.textContent = message; // Update the random event message
 };
 
 // Trigger a random event (either swapRandomMark or clearHalfBoard)
 const triggerRandomEvent = () => {
     const randomEvents = [
-        { name: 'swapRandomMark', action: swapRandomMark },
-        { name: 'swapAllMark', action: swapAllMarks },
-        { name: 'clearRow', action: clearRow },
-        { name: 'clearColumn', action: clearColumn },
-        { name: 'clearDiagonal', action: clearDiagonal },
-        { name: 'moveGrid (up)', action: () => moveGrid('up') },
-        { name: 'moveGrid (down)', action: () => moveGrid('down') },
-        { name: 'moveGrid (left)', action: () => moveGrid('left') },
-        { name: 'moveGrid (right)', action: () => moveGrid('right') },
+        { name: 'Swap Random Mark', action: swapRandomMark },
+        { name: 'Swap All Mark', action: swapAllMarks },
+        { name: 'Clear Row', action: clearRow },
+        { name: 'Clear Column', action: clearColumn },
+        { name: 'Clear Diagonal', action: clearDiagonal },
+        { name: 'Move Grid (up)', action: () => moveGrid('up') },
+        { name: 'Move Grid (down)', action: () => moveGrid('down') },
+        { name: 'Move Grid (left)', action: () => moveGrid('left') },
+        { name: 'Move Grid (right)', action: () => moveGrid('right') },
     ];
 
     // Choose a random event from the list
@@ -118,6 +134,9 @@ const triggerRandomEvent = () => {
     // Log and execute the selected event
     console.log(`Random event: ${randomEvent.name} triggered`);
     randomEvent.action();
+
+    // Update random event message
+    updateRandomEventMessage(`Random Event: ${randomEvent.name}`);
 };
 
 
@@ -150,12 +169,17 @@ const markWinningCells = (combination) => {
 // Handle a win
 const handleWin = () => {
     document.getElementById('winner').textContent = `Player ${currentPlayer} wins!`;
+    updateStatusMessage(`Game Over`);
+    updateRandomEventMessage(''); // Clear any random event messages
+    gameOver = true; // Set game over
     document.getElementById('restart-container').style.display = 'block'; // Show restart button
 };
 
 // Handle a draw
 const handleDraw = () => {
     document.getElementById('winner').textContent = "It's a draw!";
+    updateStatusMessage(`Game Over`);
+    updateRandomEventMessage(''); // Clear any random event messages
     document.getElementById('restart-container').style.display = 'block'; // Show restart button
 };
 
