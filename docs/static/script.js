@@ -25,13 +25,26 @@ const showPlayerChoice = (mode) => {
     document.getElementById('player-choice').classList.add('active');
 };
 
-// Directly start the game for calibration
 const startGameDirect = () => {
     currentPlayer = 'X';
     robotSymbol = 'O';
     document.getElementById('menu').classList.remove('active');
     document.getElementById('game-board').classList.add('active');
+    document.getElementById('clear-container').style.display = 'block'; // Show the clear button
     initializeGrid();
+};
+
+const clearGrid = () => {
+    // Clear the gameState array
+    gameState = ['', '', '', '', '', '', '', '', ''];
+
+    // Clear the DOM cells
+    const cells = document.querySelectorAll('.cell');
+    cells.forEach((cell) => {
+        cell.textContent = '';
+    });
+
+    console.log('Grid cleared');
 };
 
 // Set the player and start the game
