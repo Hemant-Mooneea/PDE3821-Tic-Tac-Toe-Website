@@ -23,6 +23,7 @@ const showPlayerChoice = (mode) => {
     gameMode = mode;
     document.getElementById('menu').classList.remove('active');
     document.getElementById('player-choice').classList.add('active');
+    document.getElementById('clear-button').style.display = 'none'; // Hide the clear button    
 };
 
 const startGameDirect = () => {
