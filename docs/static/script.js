@@ -90,9 +90,9 @@ const markCell = (cell, index) => {
             handleDraw();
             return; // Exit if the game is over
         }
-
         // Step 3: Handle random event
         if (gameMode == 'random'){
+            document.getElementById('probability-container').innerHTML = `Event Probability: ${randomEventProbability.toFixed(1)}`;
             if (Math.random() < randomEventProbability) {
                 triggerRandomEvent(); // Perform the random event
                 console.log(`Random event occurred at ${randomEventProbability}`);
