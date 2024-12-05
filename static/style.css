@@ -1,36 +1,42 @@
+/* General Styling */
 body {
     font-family: Arial, sans-serif;
     text-align: center;
     background-color: black;
-    color:white
+    color: white;
+    margin: 0;
+    padding: 0;
 }
+
+/* Game Image Styling */
 .game-image {
     width: 100%;
     max-width: 300px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
+/* Header Styling */
 header {
-    display: flex; /* Use flexbox for layout */
-    justify-content: space-between; /* Push "Robot" to the left and "Human" to the right */
-    align-items: center; /* Vertically align text */
-    padding: 10px; /* Add padding around the header */
-    width: 100%; /* Make the header span the full width of the screen */
-    position: relative; /* Ensure the header stays in position */
-    box-sizing: border-box; /* Include padding in width calculation */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
 }
 header span {
     font-size: 1.2rem;
     font-weight: bold;
 }
 
+/* Game Container and Grid */
 .game-container {
     margin: 50px auto;
     width: 300px;
 }
 .grid {
     display: grid;
-
     grid-template-columns: repeat(3, 100px);
     grid-template-rows: repeat(3, 100px);
     gap: 0px;
@@ -45,46 +51,46 @@ header span {
     justify-content: center;
     cursor: pointer;
 }
+.cell.used {
+    cursor: not-allowed;
+    color: white;
+}
 
-
+/* Cell Border Adjustments */
 .cell:nth-child(3n) {
     border-right: 10px solid white;
 }
-
-
 .cell:nth-last-child(-n+3) {
     border-bottom: 10px solid white;
 }
-
 .cell:nth-child(3n-2) {
     border-left: 10px solid white;
 }
-
 .cell:nth-child(-n+3) {
     border-top: 10px solid white;
 }
 
-.cell.used {
-    cursor: not-allowed;
-    color:white;
-}
-#player-choice {
-    margin-bottom: 20px;
-}
+/* Buttons */
 button {
     margin: 10px;
     padding: 10px 20px;
     font-size: 16px;
+    background-color: black;
+    color: white;
+    border: 2px solid white;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 button:hover {
-    background-color: #ddd;
+    background-color: white;
+    color: black;
 }
 
+/* Restart Container */
 #restart-container {
     margin-top: 20px;
 }
-
 #restart-button {
     padding: 10px 20px;
     font-size: 1.2rem;
@@ -94,11 +100,31 @@ button:hover {
     border-radius: 5px;
     cursor: pointer;
 }
-
 #restart-button:hover {
     background-color: green;
+    color: white;
+}
+
+/* Hidden Sections */
+#menu,
+#player-choice,
+#game-board {
+    display: none;
+}
+#menu.active,
+#player-choice.active,
+#game-board.active {
+    display: block;
 }
 
 
-
+#clear-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
 

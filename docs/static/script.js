@@ -48,10 +48,23 @@ const clearGrid = () => {
     console.log('Grid cleared');
 };
 
+async function setPlayerSever(currentPlayer) {
+    await fetch("http://127.0.0.1:5000/shape", 
+    {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+            shape: currentPlayer
+         }),
+    });
+}
 // Set the player and start the game
-const setPlayer = (player) => {
+const setPlayer = async (player) => {
     currentPlayer = player;
     robotSymbol = player === 'X' ? 'O' : 'X';
+    await setPlayerSever(currentPlayer);
     document.getElementById('human-symbol').textContent = currentPlayer;
     document.getElementById('robot-symbol').textContent = robotSymbol;
     document.getElementById('player-choice').classList.remove('active');
