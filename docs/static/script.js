@@ -16,8 +16,6 @@ const winningCombinations = [
     [2, 4, 6],
 ];
 
-
-
 // Show the player choice section
 const showPlayerChoice = (mode) => {
     gameMode = mode;
@@ -62,8 +60,8 @@ async function setPlayerSever(currentPlayer) {
 }
 // Set the player and start the game
 const setPlayer = async (player) => {
-    currentPlayer = player;
-    robotSymbol = player === 'X' ? 'O' : 'X';
+    currentPlayer = 'X'; // Ensure X always starts
+    robotSymbol = 'O'; // Robot will always be O
     await setPlayerSever(currentPlayer);
     document.getElementById('human-symbol').textContent = currentPlayer;
     document.getElementById('robot-symbol').textContent = robotSymbol;
