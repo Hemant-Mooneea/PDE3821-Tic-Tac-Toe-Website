@@ -94,13 +94,20 @@ const markCell = (cell, index) => {
         gameState[index] = currentPlayer;
 
         // Step 2: Check for win or draw conditions
-        if (checkWin()) {
-            handleWin();
-            return; // Exit if the game is over
-        } else if (checkDraw()) {
-            handleDraw();
-            return; // Exit if the game is over
+        if(gameMode=='normal' || gameMode=='random'){
+            if (checkWin()) 
+            {
+                handleWin();
+                return; // Exit if the game is over
+            }
         }
+        if (checkDraw())
+        {
+                handleDraw();
+                return; // Exit if the game is over
+        }
+    
+        
         // Step 3: Handle random event
         if (gameMode == 'random'){
             document.getElementById('probability-container').innerHTML = `Event Probability: ${randomEventProbability.toFixed(1)}`;
