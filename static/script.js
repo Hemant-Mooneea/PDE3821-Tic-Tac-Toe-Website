@@ -62,7 +62,7 @@ async function setPlayerSever(currentPlayer) {
 const setPlayer = async (player) => {
     currentPlayer = 'X'; // Ensure X always starts
     robotSymbol = 'O'; // Robot will always be O
-    await setPlayerSever(currentPlayer);
+    await setPlayerSever(player);
     document.getElementById('human-symbol').textContent = currentPlayer;
     document.getElementById('robot-symbol').textContent = robotSymbol;
     document.getElementById('player-choice').classList.remove('active');
