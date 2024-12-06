@@ -49,7 +49,7 @@ const clearGrid = () => {
 };
 
 async function setPlayerSever(currentPlayer) {
-    await fetch("http://192.168.1.11/shape", 
+    await fetch("http://192.168.1.11:5000/shape", 
     {
         method: 'POST',
         headers: {
