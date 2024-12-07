@@ -15,6 +15,10 @@ def hello_world():
     global BOT_SHAPE
     global CURRENT_TURN
     
+    PLAYER_SHAPE = ""
+    BOT_SHAPE = ""
+    CURRENT_TURN = ""
+    
     return render_template('index.html')
 
 @app.route('/shape', methods=['GET','POST','DELETE'])
