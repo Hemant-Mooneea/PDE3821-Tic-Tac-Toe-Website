@@ -89,8 +89,7 @@ const initializeGrid = () => {
 
 async function setCellServer(last_played)
 {
-    console.log("Hi")
-    await fetch("http://127.0.0.1:5000/last-played", 
+    await fetch("http://192.168.1.11:5000/last-played", 
     {
         method: 'POST',
         headers: {
