@@ -62,8 +62,11 @@ async function setPlayerSever(currentPlayer) {
 const setPlayer = async (player) => {
     currentPlayer = 'X'; // Ensure X always starts
     robotSymbol = 'O'; // Robot will always be O
+
     await setPlayerSever(player);
-    document.getElementById('human-symbol').textContent = currentPlayer;
+    humanSymbol = player;
+    robotSymbol = humanSymbol === 'X' ? 'O' : 'X'; // Set the robot symbol
+    document.getElementById('human-symbol').textContent = humanSymbol;
     document.getElementById('robot-symbol').textContent = robotSymbol;
     document.getElementById('player-choice').classList.remove('active');
     document.getElementById('game-board').classList.add('active');
@@ -89,7 +92,6 @@ const initializeGrid = () => {
 
 async function setCellServer(last_played)
 {
-
     await fetch("http://192.168.1.11:5000/last-played", 
     {
         method: 'POST',
