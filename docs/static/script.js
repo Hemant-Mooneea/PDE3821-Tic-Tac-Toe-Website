@@ -129,10 +129,10 @@ const markCell = async (cell, index) => {
         
         // Step 3: Handle random event
         if (gameMode == 'random'){
-            document.getElementById('probability-container').innerHTML = `Event Probability: ${randomEventProbability.toFixed(1)}`;
+            document.getElementById('probability-container').innerHTML = `Event Probability: ${randomEventProbability.toFixed(1) * 100}%`;
             if (Math.random() < randomEventProbability) {
                 triggerRandomEvent(); // Perform the random event
-                console.log(`Random event occurred at ${randomEventProbability * 100}%`);
+                console.log(`Random event occurred at ${randomEventProbability}`);
                 randomEventProbability = 0.1; // Reset probability after event 
             } else {
                 console.log(`Before incrementing, Probability is ${randomEventProbability}`)
