@@ -87,11 +87,28 @@ const initializeGrid = () => {
     }
 };
 
-const markCell = (cell, index) => {
+async function setCellServer(last_played)
+{
+    console.log("Hi")
+    await fetch("http://127.0.0.1:5000/last-played", 
+    {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+            last_played: last_played
+        }),
+    });
+    
+}
+const markCell = async (cell, index) => {
     if (!cell.textContent && !gameOver) {
         // Step 1: Mark the cell for the current player
         cell.textContent = currentPlayer;
         gameState[index] = currentPlayer;
+
+        await setCellServer(currentPlayer);
 
         // Step 2: Check for win or draw conditions
         if(gameMode=='normal' || gameMode=='random'){
