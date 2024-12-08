@@ -132,7 +132,7 @@ const markCell = async (cell, index) => {
             document.getElementById('probability-container').innerHTML = `Event Probability: ${randomEventProbability.toFixed(1)}`;
             if (Math.random() < randomEventProbability) {
                 triggerRandomEvent(); // Perform the random event
-                console.log(`Random event occurred at ${randomEventProbability}`);
+                console.log(`Random event occurred at ${randomEventProbability * 100}%`);
                 randomEventProbability = 0.1; // Reset probability after event 
             } else {
                 console.log(`Before incrementing, Probability is ${randomEventProbability}`)
