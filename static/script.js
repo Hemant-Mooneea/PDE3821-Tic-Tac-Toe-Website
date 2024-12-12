@@ -1,10 +1,12 @@
-let currentPlayer = '';
+// Initialize variables for game state and settings
+let currentPlayer = ''; // Current player's symbol ('X' or 'O')
 let robotSymbol = '';
-let gameState = ['', '', '', '', '', '', '', '', ''];
+let gameState = ['', '', '', '', '', '', '', '', '']; // Initial game board state
 let gameOver = false;
 let gameMode = ''; // Track the selected mode: 'normal' or 'random'
 let randomEventProbability = 0.1; // Start with a 10% chance
 
+// Possible winning combinations
 const winningCombinations = [
     [0, 1, 2],
     [3, 4, 5],
@@ -18,12 +20,12 @@ const winningCombinations = [
 
 // Show the player choice section
 const showPlayerChoice = (mode) => {
-    gameMode = mode;
-    document.getElementById('menu').classList.remove('active');
-    document.getElementById('player-choice').classList.add('active');
+    gameMode = mode; // Set the selected game mode
+    document.getElementById('menu').classList.remove('active'); // Hide menu
+    document.getElementById('player-choice').classList.add('active'); // Show player choice
     document.getElementById('clear-button').style.display = 'none'; // Hide the clear button    
 };
-
+// Start the game directly with predefined settings
 const startGameDirect = () => {
     currentPlayer = 'X';
     robotSymbol = 'O';
@@ -35,10 +37,11 @@ const startGameDirect = () => {
 
 const clearGrid = () => {
     // Clear the gameState array
-    gameState = ['', '', '', '', '', '', '', '', ''];
+    gameState = ['', '', '', '', '', '', '', '', '']; // Reset game state
 
-    // Clear the DOM cells
+    // Select all cells
     const cells = document.querySelectorAll('.cell');
+    // Clear cell content
     cells.forEach((cell) => {
         cell.textContent = '';
     });
@@ -46,6 +49,7 @@ const clearGrid = () => {
     console.log('Grid cleared');
 };
 
+// Send player's choice to the server
 async function setPlayerSever(currentPlayer) {
     await fetch("http://192.168.1.11:5000/shape", 
     {
@@ -54,7 +58,7 @@ async function setPlayerSever(currentPlayer) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({ 
-            shape: currentPlayer
+            shape: currentPlayer // Send player symbol
          }),
     });
 }
@@ -70,26 +74,28 @@ const setPlayer = async (player) => {
     document.getElementById('robot-symbol').textContent = robotSymbol;
     document.getElementById('player-choice').classList.remove('active');
     document.getElementById('game-board').classList.add('active');
-    initializeGrid();
+    initializeGrid(); // Initialize the game grid
 };
 
 // Initialize the game grid
 const initializeGrid = () => {
-    const grid = document.getElementById('grid');
-    grid.innerHTML = '';
-    gameState = ['', '', '', '', '', '', '', '', ''];
+    const grid = document.getElementById('grid'); // Select grid element
+    grid.innerHTML = ''; // Clear grid content
+    gameState = ['', '', '', '', '', '', '', '', '']; // Reset game state
     gameOver = false;
-    document.getElementById('winner').textContent = '';
+    document.getElementById('winner').textContent = ''; // Clear winner message
     document.getElementById('restart-container').style.display = 'none'; // Hide restart button at start
+    // Loop to create grid cells
     for (let i = 0; i < 9; i++) {
         const cell = document.createElement('div');
         cell.className = 'cell';
-        cell.setAttribute('data-index', i);
-        cell.addEventListener('click', () => markCell(cell, i));
-        grid.appendChild(cell);
+        cell.setAttribute('data-index', i); // Add data index
+        cell.addEventListener('click', () => markCell(cell, i)); // Add click event
+        grid.appendChild(cell); // Add cell to grid
     }
 };
 
+// Send cell data to the server
 async function setCellServer(last_played)
 {
     await fetch("http://192.168.1.11:5000/last-played", 
@@ -99,11 +105,12 @@ async function setCellServer(last_played)
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({ 
-            last_played: last_played
+            last_played: last_played  // Send last played symbol
         }),
-    });
-    
+    });   
 }
+
+// Mark a cell and handle game logic
 const markCell = async (cell, index) => {
     if (!cell.textContent && !gameOver) {
         // Step 1: Mark the cell for the current player
@@ -147,7 +154,7 @@ const markCell = async (cell, index) => {
 
 
 
-
+// Toggle current player
 const togglePlayer = () => {
     if (!gameOver) {
         currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
@@ -155,17 +162,19 @@ const togglePlayer = () => {
     }
 };
 
+// Update the status message
 const updateStatusMessage = (message) => {
     const statusElement = document.getElementById('status');
-    statusElement.textContent = message; // Update the status message
+    statusElement.textContent = message; 
 };
 
+// Update random event message
 const updateRandomEventMessage = (message) => {
     const randomEventElement = document.getElementById('random-event');
     randomEventElement.textContent = message; // Update the random event message
 };
 
-// Trigger a random event (either swapRandomMark or clearHalfBoard)
+// Trigger a random event
 const triggerRandomEvent = () => {
     const randomEvents = [
         { name: 'Swap Random Mark', action: swapRandomMark },
@@ -193,6 +202,7 @@ const triggerRandomEvent = () => {
 
 // Check for a win
 const checkWin = () => {
+    // Loop through winning combinations
     for (let combination of winningCombinations) {
         const [a, b, c] = combination;
         if (gameState[a] && gameState[a] === gameState[b] && gameState[a] === gameState[c]) {
