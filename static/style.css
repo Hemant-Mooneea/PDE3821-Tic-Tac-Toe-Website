@@ -25,6 +25,7 @@ header {
     width: 100%;
     box-sizing: border-box;
 }
+ /* Styling for text inside the header */
 header span {
     font-size: 1.2rem;
     font-weight: bold;
@@ -32,16 +33,19 @@ header span {
 
 /* Game Container and Grid */
 .game-container {
+    /* Centralize and set the width of the game area */
     margin: 50px auto;
     width: 300px;
 }
 .grid {
+     /* Grid layout for the Tic Tac Toe board */
     display: grid;
     grid-template-columns: repeat(3, 100px);
     grid-template-rows: repeat(3, 100px);
     gap: 0px;
 }
 .cell {
+    /* Styling for individual grid cells */
     background-color: black;
     border: 3px solid white;
     font-size: 2rem;
@@ -52,6 +56,7 @@ header span {
     cursor: pointer;
 }
 .cell.used {
+     /* Styling for used cells (already clicked) */
     cursor: not-allowed;
     color: white;
 }
@@ -72,6 +77,7 @@ header span {
 
 /* Buttons */
 button {
+    /* General button styling */
     margin: 10px;
     padding: 10px 20px;
     font-size: 16px;
@@ -83,15 +89,18 @@ button {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 button:hover {
+    /* Styling for buttons when hovered */
     background-color: white;
     color: black;
 }
 
 /* Restart Container */
 #restart-container {
+     /* Container for the restart button */
     margin-top: 20px;
 }
 #restart-button {
+    /* Specific styling for the restart button */
     padding: 10px 20px;
     font-size: 1.2rem;
     background-color: white;
@@ -101,6 +110,7 @@ button:hover {
     cursor: pointer;
 }
 #restart-button:hover {
+    /* Styling for restart button on hover */
     background-color: green;
     color: white;
 }
@@ -109,15 +119,17 @@ button:hover {
 #menu,
 #player-choice,
 #game-board {
+    /* Initially hide all game sections */
     display: none;
 }
 #menu.active,
 #player-choice.active,
 #game-board.active {
+    /* Show active sections */
     display: block;
 }
 
-
+ /* Styling for the clear grid button */
 #clear-button {
     padding: 10px 20px;
     font-size: 16px;
