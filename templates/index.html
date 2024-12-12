@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Tic Tac Toe</title>
+    <!-- linking to CSS file -->
     <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
     <!-- Menu Section -->
     <div id="menu" class="active">
+        <!-- Adding decorative image -->
         <img src="static/pic.png" alt="Tic Tac Toe Image" class="game-image">
         <h1>Tic Tac Toe</h1>
         <p>Choose your mode:</p>
+        <!-- Buttons to choose mode -->
         <button onclick="showPlayerChoice('normal')">Normal Mode</button>
         <button onclick="showPlayerChoice('random')">Random Mode</button>
         <button onclick="startGameDirect()">Calibrate</button>
@@ -22,32 +25,40 @@
         <img src="static/pic.png" alt="Tic Tac Toe Image" class="game-image">
         <h1>Tic Tac Toe</h1>
         <p>Choose your mark:</p>
+        <!-- Buttons to choose player shape -->
         <button onclick="setPlayer('X')">Player X</button>
         <button onclick="setPlayer('O')">Player O</button>
     </div>
 
     <!-- Game Board Section -->
     <div id="game-board" class="game-container">
+        <!-- Display players' symbols -->
         <header>
             <span>Robot: <span id="robot-symbol"></span></span>
             <span>Human: <span id="human-symbol"></span></span>
         </header>
+        <!-- Grid container for Tic Tac Toe cells -->
         <div class="grid" id="grid"></div>
+         <!-- Displays the winner -->
         <p id="winner"></p>
+        <!-- Displays whose turn is next -->
         <p id="status" class="status-message"></p>
+        <!-- Displays which random event just happened in Random mode -->
         <p id="random-event" class="random-event-message"></p>
+        <!-- Displays probability % for a random event to happen -->
         <p id="probability-container"></p>
-        <!-- Clear Grid Button -->
+        <!-- Display Clear Grid Button in Calibration mode -->
         <div id="clear-container">
             <button id="clear-button" onclick="clearGrid()">Clear Grid</button>
         </div>
+        <!-- Display Restart Button when game is over -->
         <div id="restart-container">
             <button id="restart-button" onclick="restartGame()">Play Again</button>
         </div>
 
         
     </div>
-
+    <!-- Link to js file -->
     <script src="static/script.js"></script>
 </body>
 </html>
